@@ -35,7 +35,7 @@ WORKDIR /usr/src/app
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-FROM trailofbits/echidna AS echidna
-COPY --from=echidna /usr/local/bin/echidna-test /usr/local/bin/echidna-test
+FROM trailofbits/echidna AS builder-echidna
+COPY --from=builder-echidna /usr/local/bin/echidna-test /usr/local/bin/echidna-test
 
 # CMD [ "python", "./your-daemon-or-script.py" ]
