@@ -1,0 +1,4 @@
+maturin
+mythril
+manticore
+slither-analyzer
