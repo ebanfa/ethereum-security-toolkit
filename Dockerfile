@@ -1,5 +1,3 @@
-FROM trailofbits/echidna AS builder-echidna
-
 FROM python:3.10.6
 
 RUN python3 --version
@@ -37,6 +35,6 @@ WORKDIR /usr/src/app
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-COPY --from=builder-echidna /usr/local/bin/echidna-test /usr/local/bin/echidna-test
+COPY --from=trailofbits/echidna /usr/local/bin/echidna-test /usr/local/bin/echidna-test
 
 # CMD [ "python", "./your-daemon-or-script.py" ]
