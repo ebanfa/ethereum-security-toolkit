@@ -16,7 +16,7 @@ ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 RUN npm install -g npm@latest
 
 # Install ganache-cli globally
-RUN npm install -g ganache-cli
+RUN npm install -g ganache
 
 # Install Solidity compiler
 RUN curl -o /usr/bin/solc -fL https://github.com/ethereum/solidity/releases/download/v0.8.17/solc-static-linux \

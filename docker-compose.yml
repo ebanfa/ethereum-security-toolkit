@@ -5,7 +5,7 @@ services:
     build:
       context: .
     ports:
-      - 27017:27017
+      - 8545:8545
     environment:
       - AUDITOR_ROOT_USERNAME=root
       - AUDITOR_ROOT_PASSWORD=root
