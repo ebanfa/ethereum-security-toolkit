@@ -43,4 +43,6 @@ RUN git clone --depth 1 https://github.com/trailofbits/not-so-smart-contracts.gi
     git clone --depth 1 https://github.com/trailofbits/rattle.git && \
     git clone --depth 1 https://github.com/crytic/building-secure-contracts
 
+# Set the default command for the image
+# CMD ["ganache-cli", "-h", "0.0.0.0"]
 ENTRYPOINT ["/bin/bash"]
