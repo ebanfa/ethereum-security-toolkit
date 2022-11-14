@@ -18,34 +18,29 @@ RUN npm install -g npm@latest
 # Install ganache-cli globally
 RUN npm install -g ganache truffle
 
-# # Install Solidity compiler
-# RUN curl -o /usr/bin/solc -fL https://github.com/ethereum/solidity/releases/download/v0.8.17/solc-static-linux \
-#     && chmod u+x /usr/bin/solc
+# Install Solidity compiler
+RUN curl -o /usr/bin/solc -fL https://github.com/ethereum/solidity/releases/download/v0.8.17/solc-static-linux \
+    && chmod u+x /usr/bin/solc
 
-# # Get Rust
-# RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
+# Get Rust
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 
-# ENV PATH="/root/.cargo/bin:${PATH}"
+ENV PATH="/root/.cargo/bin:${PATH}"
 
-# RUN rustup default nightly
+RUN rustup default nightly
 
-# # Install Manticore, Mythril and Slither 
-# WORKDIR /usr/src/app
-# COPY requirements.txt ./
-# RUN pip3 install --no-cache-dir -r requirements.txt
+# Install Manticore, Mythril and Slither 
+WORKDIR /usr/src/app
+COPY requirements.txt ./
+RUN pip3 install --no-cache-dir -r requirements.txt
 
-# Install all and select the latest version of solc as the default
-# SOLC_VERSION is defined to a valid version to avoid a warning message on the output
-RUN pip3 --no-cache-dir install solc-select
-RUN solc-select install all && SOLC_VERSION=0.8.0 solc-select versions | head -n1 | xargs solc-select use
 
-RUN pip3 --no-cache-dir install maturin slither-analyzer pyevmasm
-RUN pip3 --no-cache-dir install --upgrade manticore
+# Install Echidna 
+COPY --from=trailofbits/echidna /usr/local/bin/echidna-test /usr/local/bin/echidna-test
+
 
 RUN git clone --depth 1 https://github.com/trailofbits/not-so-smart-contracts.git && \
     git clone --depth 1 https://github.com/trailofbits/rattle.git && \
     git clone --depth 1 https://github.com/crytic/building-secure-contracts
-# Install Echidna 
-COPY --from=trailofbits/echidna /usr/local/bin/echidna-test /usr/local/bin/echidna-test
 
-# CMD [ "python", "./your-daemon-or-script.py" ]
+ENTRYPOINT ["/bin/bash"]
