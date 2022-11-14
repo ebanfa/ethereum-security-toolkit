@@ -1,4 +1,4 @@
-FROM python:3.10.6
+FROM python:3.10.8-slim-buster
 
 RUN python3 --version
 
@@ -16,12 +16,11 @@ ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 RUN npm install -g npm@latest
 
 # Install ganache-cli globally
-RUN npm install -g ganache
+RUN npm install -g ganache truffle
 
 # Install Solidity compiler
 RUN curl -o /usr/bin/solc -fL https://github.com/ethereum/solidity/releases/download/v0.8.17/solc-static-linux \
     && chmod u+x /usr/bin/solc
-RUN solc --version
 
 # Get Rust
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
