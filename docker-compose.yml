@@ -3,12 +3,12 @@ version: '3.4'
 services:
   alstraverse-audit:
     build:
-      context: ./db
+      context: .
     ports:
       - 27017:27017
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=root
+      - AUDITOR_ROOT_USERNAME=root
+      - AUDITOR_ROOT_PASSWORD=root
     volumes:
       - mongo-data:/data/db
 

@@ -30,23 +30,12 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 
 RUN rustup default nightly
 
-# Python packages 
+# Install Manticore, Mythril and Slither 
 WORKDIR /usr/src/app
-
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-# Install Haskell
-ENV PATH="/root/.local/bin:${PATH}"
-RUN curl -sSL https://get.haskellstack.org/ | sh
-
-# Install Echidna
-ENV ECHIDNA_VERSION=2.0.3
-RUN wget https://github.com/crytic/echidna/archive/refs/tags/v${ECHIDNA_VERSION}.zip
-RUN unzip v${ECHIDNA_VERSION}.zip
-WORKDIR /usr/src/app/echidna-${ECHIDNA_VERSION}
-RUN /usr/local/bin/stack install
-
-COPY . .
+FROM trailofbits/echidna AS echidna
+COPY --from=echidna /usr/local/bin/echidna-test /usr/local/bin/echidna-test
 
 # CMD [ "python", "./your-daemon-or-script.py" ]
