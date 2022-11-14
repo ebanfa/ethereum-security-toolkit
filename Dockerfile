@@ -33,6 +33,7 @@ RUN rustup default nightly
 WORKDIR /usr/src/app
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip install git+https://github.com/enzymefinance/oyente.git
 
 # Install Echidna 
 COPY --from=trailofbits/echidna /usr/local/bin/echidna-test /usr/local/bin/echidna-test
