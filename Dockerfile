@@ -39,7 +39,7 @@ RUN npm install -g ganache truffle
 RUN pip3 --no-cache-dir install solc-select
 RUN solc-select install all && SOLC_VERSION=0.8.0 solc-select versions | head -n1 | xargs solc-select use
 
-RUN pip3 --no-cache-dir install slither-analyzer pyevmasm
+RUN pip3 --no-cache-dir install maturin slither-analyzer pyevmasm
 RUN pip3 --no-cache-dir install --upgrade manticore
 
 RUN git clone --depth 1 https://github.com/trailofbits/not-so-smart-contracts.git && \
