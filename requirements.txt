@@ -1,4 +1,5 @@
 maturin
+oyente
 mythril
 manticore
 slither-analyzer
