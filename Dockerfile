@@ -12,11 +12,11 @@ RUN . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION}
 RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 
+# Install latest NPM
 RUN npm install -g npm@latest
-RUN npm install -g typescript
 
-RUN node --version
-RUN npm --version
+# Install ganache-cli globally
+RUN npm install -g ganache-cli
 
 # Install Solidity compiler
 RUN curl -o /usr/bin/solc -fL https://github.com/ethereum/solidity/releases/download/v0.8.17/solc-static-linux \
@@ -35,6 +35,7 @@ WORKDIR /usr/src/app
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
 
+# Install Echidna 
 COPY --from=trailofbits/echidna /usr/local/bin/echidna-test /usr/local/bin/echidna-test
 
 # CMD [ "python", "./your-daemon-or-script.py" ]
