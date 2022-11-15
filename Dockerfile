@@ -16,6 +16,10 @@ ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 RUN npm install -g npm@latest
 RUN npm install -g ganache truffle
 
+# Install some apt dependencies
+RUN apt update && \ 
+    apt install software-properties-common
+
 # Install Solidity compiler
 RUN add-apt-repository ppa:ethereum/ethereum && \ 
     apt-get update && \
