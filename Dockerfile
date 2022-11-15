@@ -18,12 +18,13 @@ RUN npm install -g ganache truffle
 
 # Install some apt dependencies
 RUN apt update && \ 
-    apt install software-properties-common
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    software-properties-common
 
 # Install Solidity compiler
 RUN add-apt-repository ppa:ethereum/ethereum && \ 
     apt-get update && \
-    apt-get install solc
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends install solc
 
 # Get Rust
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
