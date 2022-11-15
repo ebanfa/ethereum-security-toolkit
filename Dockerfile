@@ -13,7 +13,7 @@ RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 
 # Install ganache-cli globally
-RUN npm install -g npm@latest -g ganache truffle
+RUN npm install -g npm@latest ganache truffle
 
 # Install Solidity compiler
 RUN add-apt-repository ppa:ethereum/ethereum && \ 
