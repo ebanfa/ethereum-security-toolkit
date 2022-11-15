@@ -12,19 +12,15 @@ RUN . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION}
 RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 
-# Install ganache-cli globally
+# Install latest NPM globally 
 RUN npm install -g npm@latest
+
+# Install ganache-cli globally
 RUN npm install -g ganache truffle
 
-# Install some apt dependencies
-RUN apt update && \ 
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    software-properties-common
-
 # Install Solidity compiler
-RUN add-apt-repository ppa:ethereum/ethereum && \ 
-    apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends install solc
+RUN curl -o /usr/bin/solc -fL https://github.com/ethereum/solidity/releases/download/v0.8.17/solc-static-linux \
+    && chmod u+x /usr/bin/solc
 
 # Get Rust
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
